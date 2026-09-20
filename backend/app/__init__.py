@@ -1,0 +1,1 @@
+"""InvestAnalytics backend application package."""
