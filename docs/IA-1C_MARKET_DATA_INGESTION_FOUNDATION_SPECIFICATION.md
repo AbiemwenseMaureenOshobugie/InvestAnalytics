@@ -1429,3 +1429,126 @@ After approval:
 7. run the second-engine review before declaring IA-1C complete.
 
 **No provider-specific application code should be introduced before the IA-1C specification is approved and the implementation gate is opened.**
+
+
+## 68. Explicit Per-Batch Implementation Gate
+
+The criteria below are mandatory pass/fail gates for **every implementation batch**, not only the final IA-1C batch. They supplement Sections 57–62 and do not replace them.
+
+### 68.1 Batch CI gate — PASS/FAIL
+
+For each IA-1C implementation batch:
+
+- [ ] the batch is committed as a coherent, reviewable commit;
+- [ ] the exact resulting HEAD SHA is identified;
+- [ ] CI is triggered for that exact HEAD under the repository's existing workflow;
+- [ ] all required CI jobs for that HEAD pass;
+- [ ] no subsequent IA-1C implementation batch begins until this batch's CI result is verified;
+- [ ] the batch verification records the HEAD SHA, workflow run ID, job results, and any non-gating limitations.
+
+**PASS condition:** all boxes above are satisfied.  
+**FAIL condition:** any required check is absent, failing, unverified, or the next IA-1C implementation batch begins before verification.
+
+### 68.2 Real integration-service gate — PASS/FAIL
+
+Repository and object-storage integration tests must exercise **real service instances**, not only mocks or in-process substitutes:
+
+- [ ] PostgreSQL integration tests run against a real PostgreSQL service instance;
+- [ ] object-storage integration tests run against a real S3-compatible service instance selected for CI/local integration testing;
+- [ ] the test suite proves startup, connection, persistence, retrieval, isolation, and teardown against those services;
+- [ ] unit-level mocks remain permitted for unit tests but cannot substitute for these integration-service tests;
+- [ ] the selected CI service implementation is deterministic and documented.
+
+The current ADR direction remains unchanged: s3mock is the leading CI candidate, with MinIO suitable for fuller local development and moto remaining an alternative where appropriate. The exact implementation product remains an infrastructure choice under Section 63.
+
+**PASS condition:** both real PostgreSQL and real S3-compatible integration-service tests pass in CI.  
+**FAIL condition:** either persistence boundary is tested only with mocks/in-process substitutes, or either required real-service integration suite fails.
+
+### 68.3 Idempotency invariant gate — PASS/FAIL
+
+Idempotency must be demonstrated, not merely implemented or described.
+
+A required CI test must:
+
+1. execute the same logical ingestion/source fixture;
+2. persist the resulting canonical state;
+3. execute the same ingestion again;
+4. verify that the second execution does not create duplicate authoritative observations;
+5. verify that the resulting canonical state is equivalent to the state after the first execution;
+6. verify that raw-artifact/provenance behavior remains consistent with the approved correction/idempotency contract.
+
+**PASS condition:** the invariant test passes in CI and demonstrates repeat-ingestion stability.  
+**FAIL condition:** idempotency is asserted only by implementation inspection, a unit helper test, or an unexecuted/manual scenario.
+
+### 68.4 Quarantine classification gate — PASS/FAIL
+
+Quarantine behavior must be tested for at least two distinct failure classes:
+
+1. **Malformed/schema-invalid payload**
+   - e.g. missing required structural field, invalid payload shape, or unparsable required field.
+
+2. **Semantically invalid payload**
+   - structurally parseable but violates a domain/data-quality invariant, such as impossible OHLC relationships or an otherwise invalid canonical mapping.
+
+For both cases:
+
+- [ ] raw evidence is retained;
+- [ ] the record is not promoted to authoritative canonical data;
+- [ ] quarantine state is persisted/observable where quarantine is the applicable outcome;
+- [ ] the failure reason is explicit;
+- [ ] the reason distinguishes malformed/schema-invalid from semantically invalid;
+- [ ] the distinction is asserted by automated tests running in CI.
+
+**PASS condition:** both failure classes are independently exercised and the automated assertions prove distinguishable quarantine reasons and non-promotion.  
+**FAIL condition:** either class is untested, reasons are indistinguishable, raw evidence is lost, or the invalid record can reach authoritative canonical state.
+
+### 68.5 Gate precedence and batch closure
+
+These four gates are mandatory additions to the existing implementation gates.
+
+A batch may be **implemented** without being **closed**.
+
+A batch is **closed** only when:
+
+```
+Batch implementation
+        ↓
+Commit exact HEAD
+        ↓
+Batch CI gate PASS
+        ↓
+Required integration-service tests PASS
+        ↓
+Required invariant/classification tests PASS
+        ↓
+Verification recorded
+        ↓
+Next batch may begin
+```
+
+The final IA-1C milestone still requires all applicable Sections 57–62 gates and Section 65 acceptance criteria.
+
+## 69. Traceability of the gate amendment
+
+This amendment closes four consistency-review findings without changing architecture:
+
+| Review finding | Explicit gate closure |
+|---|---|
+| Intermediate batches were not explicitly CI-gated | §68.1 requires CI verification before the next batch |
+| Real PostgreSQL/S3-compatible services were not mandatory | §68.2 requires both real integration services |
+| Idempotency was not required as a demonstrated invariant | §68.3 requires a repeat-ingestion invariant test |
+| Malformed vs semantic quarantine was not explicitly distinguished in tests | §68.4 requires both classes and distinguishable reasons |
+
+No new provider, storage, persistence, or CI architecture decision is introduced by this amendment.
+
+## 70. Next gate
+
+The next step after this amended specification is **narrow consistency re-review and approval of IA-1C**, not implementation.
+
+After closure:
+
+1. freeze the amended IA-1C contract;
+2. open IA-1C Batch 1;
+3. draft Batch 1 interface contracts and ports for review;
+4. commit the approved Batch 1 as one coherent batch;
+5. verify CI and the applicable per-batch gates on its exact HEAD before Batch 2 begins.
