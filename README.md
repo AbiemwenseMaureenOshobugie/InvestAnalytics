@@ -6,11 +6,13 @@ InvestAnalytics is a governed investment analytics platform designed for individ
 
 ## Current status
 
-**IA-0A implementation in progress — executable application skeleton established.**
+**IA-1A — Equity Intelligence Core requirements and domain contracts established.**
 
-The repository now contains the initial backend/frontend boundaries, typed configuration, FastAPI bootstrap, health/readiness endpoints, PostgreSQL connectivity boundary, backend tests, frontend scaffold, and GitHub Actions CI foundation.
+IA-0A established the executable backend/frontend skeleton, typed configuration, health/readiness endpoints, PostgreSQL boundary, backend tests, frontend scaffold, and GitHub Actions CI foundation.
 
-Business-domain workflows, persistence schema, data providers, authentication, investment calculations, and AI analyst behavior are intentionally not implemented yet.
+IA-1A now defines the first implementation-level contracts for securities, markets/listings, identifiers, market observations, corporate actions, fundamentals, financial statements, portfolios, positions, transactions, temporal semantics, provenance, validation, and data quality.
+
+Database schema, provider integrations, production ingestion, portfolio analytics, research, risk, and AI behavior remain intentionally unimplemented.
 
 ## Product loop
 
@@ -33,6 +35,7 @@ The approved architecture is a governed modular monolith with explicit domain/ap
 - [Domain Model Specification](docs/DOMAIN_MODEL_SPECIFICATION.md)
 - [System Architecture Specification](docs/SYSTEM_ARCHITECTURE_SPECIFICATION.md)
 - [IA-0A Implementation Skeleton Specification](docs/IA-0A_IMPLEMENTATION_SKELETON_SPECIFICATION.md)
+- [IA-1A Equity Intelligence Core Requirements](docs/IA-1A_EQUITY_INTELLIGENCE_CORE_REQUIREMENTS.md)
 
 ## Local development
 
