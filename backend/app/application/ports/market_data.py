@@ -9,7 +9,6 @@ from app.domain.market_data.identifiers import (
     SecurityIdentifier,
     SourceIdentity,
 )
-from app.domain.market_data.observations import MarketObservation
 from app.domain.market_data.quality import ValidationState
 
 
