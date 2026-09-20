@@ -292,20 +292,7 @@ It currently has **no `paths-ignore` or `paths` filter**.
 
 Therefore, the current repository does **not** presently implement the proposed docs-only CI skip behavior.
 
-The intended future behavior may be:
-
-```yaml
-on:
-  push:
-    branches: ["main"]
-    paths-ignore:
-      - "**.md"
-  pull_request:
-```
-
-However, that is a separate workflow change and is **not part of this provider-evaluation commit**.
-
-Until that change is explicitly approved and implemented, the IA-1C gate must describe CI behavior as it actually exists rather than assume the proposed filter already exists.
+The CI policy has now been resolved by ADR-IA-1C-003: CI will continue to run on every push to main, including documentation-only commits. No paths-ignore filter will be added. The IA-1C gate therefore does not distinguish CI applicability by file type; it distinguishes the documentation/decision review from the CI result attached to the resulting HEAD.
 
 ## 13. Decision summary
 
