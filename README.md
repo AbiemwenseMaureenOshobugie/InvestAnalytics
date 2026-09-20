@@ -2,25 +2,15 @@
 
 **Investment Intelligence & Portfolio Decision-Support Platform for Nigerian and global equities.**
 
-InvestAnalytics is a governed investment analytics platform designed for both individual investors and professional investment workflows.
-
-Its purpose is to help users:
-
-- understand portfolios and exposures;
-- analyze performance and risk;
-- research securities and investment theses;
-- connect assumptions to evidence;
-- investigate material changes;
-- run scenarios;
-- monitor investments and thesis conditions;
-- use AI-assisted analysis grounded in deterministic analytics and evidence;
-- preserve decision and analytical provenance.
+InvestAnalytics is a governed investment analytics platform designed for individual investors and professional investment workflows.
 
 ## Current status
 
-**Foundational specification phase — v0.1**
+**IA-0A implementation in progress — executable application skeleton established.**
 
-The repository is establishing the product constitution, product charter, master development context, and user/system workflow specification before the main implementation begins.
+The repository now contains the initial backend/frontend boundaries, typed configuration, FastAPI bootstrap, health/readiness endpoints, PostgreSQL connectivity boundary, backend tests, frontend scaffold, and GitHub Actions CI foundation.
+
+Business-domain workflows, persistence schema, data providers, authentication, investment calculations, and AI analyst behavior are intentionally not implemented yet.
 
 ## Product loop
 
@@ -32,15 +22,32 @@ The repository is establishing the product constitution, product charter, master
 - **Markets:** Nigeria + global
 - **Users:** Individual investors + professional investment workflows
 
-The architecture is intended to support future multi-asset expansion without prematurely implementing those asset classes.
+## Architecture
 
-## Foundational documents
+The approved architecture is a governed modular monolith with explicit domain/application/infrastructure boundaries.
 
 - [Project Constitution](docs/PROJECT_CONSTITUTION.md)
 - [Product Charter](docs/PRODUCT_CHARTER.md)
 - [Master Context](docs/MASTER_CONTEXT.md)
+- [Workflow Specification](docs/USER_SYSTEM_WORKFLOW_SPECIFICATION.md)
+- [Domain Model Specification](docs/DOMAIN_MODEL_SPECIFICATION.md)
+- [System Architecture Specification](docs/SYSTEM_ARCHITECTURE_SPECIFICATION.md)
+- [IA-0A Implementation Skeleton Specification](docs/IA-0A_IMPLEMENTATION_SKELETON_SPECIFICATION.md)
 
-The next major artifact is the **InvestAnalytics User & System Workflow Specification v0.1**.
+## Local development
+
+Backend:
+
+    cd backend
+    python -m venv .venv
+    pip install -e ".[dev]"
+    uvicorn app.main:app --reload
+
+Frontend:
+
+    cd frontend
+    npm install
+    npm run dev
 
 ## Architectural principle
 
