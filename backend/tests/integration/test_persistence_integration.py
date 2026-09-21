@@ -89,7 +89,6 @@ def test_real_postgresql_and_s3_round_trip(integration_context) -> None:
     database, store = integration_context
     security_repo = SqlAlchemySecurityRepository(database)
     listing_repo = SqlAlchemyListingRepository(database)
-    source_repo = SqlAlchemySourceRecordRepository(database)
     provenance_repo = SqlAlchemyProvenanceRepository(database)
     observation_repo = SqlAlchemyMarketObservationRepository(database)
 
