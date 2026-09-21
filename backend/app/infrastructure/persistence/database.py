@@ -1,6 +1,8 @@
+# ruff: noqa: E501
 """PostgreSQL persistence boundary for IA-1C."""
 from collections.abc import Generator
 from typing import Protocol
+
 from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker

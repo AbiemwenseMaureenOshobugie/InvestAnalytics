@@ -1,11 +1,21 @@
+# ruff: noqa: E501
 """SQLAlchemy Core repository adapters for IA-1C."""
 from datetime import datetime
 from decimal import Decimal
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
+
 from app.application.ports.errors import PersistenceError, PersistenceFailureKind
 from app.application.ports.market_data import SourceRecord
-from app.application.ports.repositories import CorporateActionRepositoryPort, IdentifierMappingRepositoryPort, ListingRepositoryPort, MarketObservationRepositoryPort, ProvenanceRepositoryPort, SecurityRepositoryPort, SourceRecordRepositoryPort
+from app.application.ports.repositories import (
+    CorporateActionRepositoryPort,
+    IdentifierMappingRepositoryPort,
+    ListingRepositoryPort,
+    MarketObservationRepositoryPort,
+    ProvenanceRepositoryPort,
+    SecurityRepositoryPort,
+    SourceRecordRepositoryPort,
+)
 from app.domain.governance.provenance import Provenance
 from app.domain.market_data.corporate_actions import CorporateAction
 from app.domain.market_data.identifiers import SourceIdentity

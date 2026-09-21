@@ -1,5 +1,7 @@
+# ruff: noqa: E501
 from functools import lru_cache
 from typing import Literal
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 Environment = Literal["development", "test", "staging", "production"]

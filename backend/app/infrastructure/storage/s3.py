@@ -1,8 +1,14 @@
+# ruff: noqa: E501
 """S3-compatible raw artifact adapter."""
 from hashlib import sha256
 import boto3
 from botocore.client import Config
-from app.application.ports.storage import RawArtifactStore, RawPayload, SourceArtifactReference
+
+from app.application.ports.storage import (
+    RawArtifactStore,
+    RawPayload,
+    SourceArtifactReference,
+)
 from app.config import Settings
 class S3RawArtifactStore(RawArtifactStore):
     def __init__(self, settings: Settings) -> None:

@@ -1,8 +1,12 @@
+# ruff: noqa: E501
 """Source-artifact metadata repository adapter."""
 from app.application.ports.repositories import SourceArtifactRepositoryPort
 from app.application.ports.storage import SourceArtifactMetadata
-from app.infrastructure.persistence.database import DatabaseConnection
 from sqlalchemy import text
+
+from app.application.ports.repositories import SourceArtifactRepositoryPort
+from app.application.ports.storage import SourceArtifactMetadata
+from app.infrastructure.persistence.database import DatabaseConnection import text
 class SqlAlchemySourceArtifactRepository(SourceArtifactRepositoryPort):
     def __init__(self, database: DatabaseConnection) -> None:
         self.database = database

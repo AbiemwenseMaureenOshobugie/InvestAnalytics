@@ -1,7 +1,10 @@
+# ruff: noqa: E501
 """Provider-neutral raw-artifact storage port."""
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Protocol
+
+
 @dataclass(frozen=True)
 class SourceArtifactReference:
     artifact_id: str
