@@ -1,3 +1,4 @@
+# ruff: noqa: E501
 """Source-artifact metadata repository adapter."""
 from sqlalchemy import text
 

@@ -25,6 +25,7 @@ from app.domain.reference_data.reference import IdentifierMapping, Listing, Secu
 
 from .database import DatabaseConnection
 
+
 class SqlAlchemySecurityRepository(SecurityRepositoryPort):
     def __init__(self, database: DatabaseConnection) -> None: self.database = database
     def get(self, security_id: str) -> Security | None:

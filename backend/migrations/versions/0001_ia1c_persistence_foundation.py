@@ -1,11 +1,13 @@
 # ruff: noqa: E501
 """IA-1C persistence foundation."""
-import sqlalchemy as sa
 from alembic import op
+import sqlalchemy as sa
 revision = "0001_ia1c_persistence_foundation"
 down_revision = None
 branch_labels = None
 depends_on = None
+
+
 def upgrade() -> None:
     op.create_table("data_sources",
         sa.Column("source_id", sa.String(100), primary_key=True),
