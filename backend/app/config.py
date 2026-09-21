@@ -5,7 +5,6 @@ from typing import Literal
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-
 Environment = Literal["development", "test", "staging", "production"]
 
 
