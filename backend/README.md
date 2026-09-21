@@ -1,23 +1,25 @@
-# InvestAnalytics Backend
+# InvestAnalytics backend
 
-IA-0A provides the executable backend skeleton only.
+The backend is a Python 3.11 modular monolith.
 
-## Local setup
+## IA-1C persistence
 
-From the backend directory:
+IA-1C Batch 2 introduces the first real persistence boundary:
 
-    python -m venv .venv
-    pip install -e ".[dev]"
+- PostgreSQL via SQLAlchemy Core and psycopg;
+- version-controlled Alembic migrations;
+- S3-compatible raw-artifact storage via boto3;
+- provider-neutral repository adapters;
+- real-service integration tests.
 
-Copy .env.example to .env when local configuration is needed.
+Domain and application packages remain independent of SQLAlchemy, PostgreSQL drivers, boto3, and provider SDKs.
 
-Run the API:
+### Local integration services
 
-    uvicorn app.main:app --reload
+Set DATABASE_URL and the RAW_STORAGE_* settings, then build the schema with:
 
-Endpoints:
+    cd backend
+    alembic upgrade head
+    pytest
 
-- GET /api/v1/health — process health.
-- GET /api/v1/readiness — runtime readiness; returns 503 when PostgreSQL is not configured.
-
-No investment-domain persistence or provider integration exists in IA-0A.
+Ordinary unit tests do not require external services. The IA-1C integration suite skips locally when the real services are not configured, but CI fails if the required integration environment is missing.
