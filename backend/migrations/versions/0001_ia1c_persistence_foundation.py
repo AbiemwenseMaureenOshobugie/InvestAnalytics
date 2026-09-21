@@ -3,7 +3,6 @@
 import sqlalchemy as sa
 from alembic import op
 
-
 revision = "0001_ia1c_persistence_foundation"
 down_revision = None
 branch_labels = None
