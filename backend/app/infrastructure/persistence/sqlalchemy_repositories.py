@@ -1,6 +1,5 @@
 # ruff: noqa: E501
 """SQLAlchemy Core repository adapters for IA-1C."""
-from collections.abc import Mapping
 from datetime import datetime
 from decimal import Decimal
 from typing import Any
@@ -67,7 +66,7 @@ class SqlAlchemyIdentifierMappingRepository(IdentifierMappingRepositoryPort):
 class SqlAlchemyMarketObservationRepository(MarketObservationRepositoryPort):
     def __init__(self, database: DatabaseConnection) -> None: self.database=database
     @staticmethod
-    def _to_domain(row: Mapping[str, Any]) -> MarketObservation:
+    def _to_domain(row: Any) -> MarketObservation:
         r=row
         return MarketObservation(str(r["listing_id"]),r["observed_at"],r["available_at"],Decimal(str(r["open"])) if r["open"] is not None else None,Decimal(str(r["high"])) if r["high"] is not None else None,Decimal(str(r["low"])) if r["low"] is not None else None,Decimal(str(r["close"])),Decimal(str(r["volume"])) if r["volume"] is not None else None,str(r["currency"]),str(r["frequency"]),bool(r["adjusted"]),SourceIdentity(str(r["provider_id"]),str(r["source_record_id"])))
     def save(self, observation: MarketObservation) -> None:
