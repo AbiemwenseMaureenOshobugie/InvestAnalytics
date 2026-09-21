@@ -10,6 +10,8 @@ from app.domain.market_data.corporate_actions import CorporateAction
 from app.domain.market_data.identifiers import SourceIdentity
 from app.domain.market_data.observations import MarketObservation
 from app.domain.reference_data.reference import IdentifierMapping, Listing, Security
+
+
 class SecurityRepositoryPort(Protocol):
     def get(self, security_id: str) -> Security | None: ...
     def save(self, security: Security) -> None: ...
