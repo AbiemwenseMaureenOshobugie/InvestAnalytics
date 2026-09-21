@@ -2,6 +2,7 @@
 """SQLAlchemy Core repository adapters for IA-1C."""
 from datetime import datetime
 from decimal import Decimal
+
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 
@@ -21,6 +22,7 @@ from app.domain.market_data.corporate_actions import CorporateAction
 from app.domain.market_data.identifiers import SourceIdentity
 from app.domain.market_data.observations import MarketObservation
 from app.domain.reference_data.reference import IdentifierMapping, Listing, Security
+
 from .database import DatabaseConnection
 
 class SqlAlchemySecurityRepository(SecurityRepositoryPort):

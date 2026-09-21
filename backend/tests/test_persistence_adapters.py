@@ -1,9 +1,12 @@
+# ruff: noqa: E501
 from datetime import UTC, datetime
 from decimal import Decimal
 
 from app.domain.market_data.identifiers import SourceIdentity
 from app.domain.market_data.observations import MarketObservation
-from app.infrastructure.persistence.sqlalchemy_repositories import SqlAlchemyMarketObservationRepository
+from app.infrastructure.persistence.sqlalchemy_repositories import (
+    SqlAlchemyMarketObservationRepository,
+)
 
 
 def test_market_observation_repository_is_importable() -> None:
